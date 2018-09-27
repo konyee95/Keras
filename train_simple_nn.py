@@ -88,3 +88,7 @@ print("[INFO] training network...")
 opt = SGD(lr=INIT_LR)
 model.compile(loss="categorical_crosstropy", optimizer=opt,
     metrics=["accuracy"])
+
+# train the neural network
+H = model.fit(trainX, trainY, validation_data=(testX, testY),
+    epochs=EPOCHS, batch_size=32)
