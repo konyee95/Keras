@@ -92,3 +92,23 @@ model.compile(loss="categorical_crosstropy", optimizer=opt,
 # train the neural network
 H = model.fit(trainX, trainY, validation_data=(testX, testY),
     epochs=EPOCHS, batch_size=32)
+
+# evaluate the network
+print("[INFO] evaluating network...")
+predictions = model.predict(testX, batch_size=32)
+print(classification_report(testY.argmax(axis=1),
+    predictions.argmax(axis=1), target_names=lb.classes_))
+
+# plot the training loss and accuracy
+N = np.arrange(0, EPOCHS)
+plt.style.use("ggplot")
+plt.figure()
+plt.plot(N, H.history["loss"], label="train_loss")
+plt.plot(N, H.history["val_loss"], label="val_loss")
+plt.plot(N, H.history["acc"], label="train_acc")
+plt.plot(N, H.history["val_acc"], label="val_acc")
+plt.title("Training Loss and Accuracy(Simple NN)")
+plt.xlabel("Epoch #")
+plt.ylabel("Loss/Accuracy")
+plt.legend()
+ply.savefig(args["plot"])
